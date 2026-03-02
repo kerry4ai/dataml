@@ -1,8 +1,8 @@
 # Dockerfile for NVIDIA PyTorch, SSH, R, and Julia
 
 # Placeholder for NVIDIA PyTorch base image
-# Please replace with the actual image, e.g., FROM nvcr.io/nvidia/pytorch:23.05-py3
-ARG PYTORCH_IMAGE=nvcr.io/nvidia/pytorch:23.05-py3
+# Base image: NVIDIA PyTorch 26.02-py3
+ARG PYTORCH_IMAGE=nvcr.io/nvidia/pytorch:26.02-py3
 FROM $PYTORCH_IMAGE
 
 LABEL maintainer="ml-docker-env"
