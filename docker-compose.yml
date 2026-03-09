@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  dataml_env:
+    build: .
+    ports:
+      - "2222:22"   # SSH
+      - "8888:8888" # Jupyter Lab
+      - "6006:6006" # TensorBoard
+      - "8787:8787" # Dask/RStudio Server (if used)
+    volumes:
+      - .:/workspace # Mount the current directory into the container
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    environment:
+      - ROOT_PASSWORD=${ROOT_PASSWORD:-docker} # Use environment variable or default 'docker'
+    command: ["/usr/local/bin/start.sh", "jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser", "--NotebookApp.token=''"]

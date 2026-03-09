@@ -17,9 +17,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     curl \
     gnupg \
-    lsb-release \
-    software-properties-common \
-    ca-certificates \
     build-essential \
     pkg-config \
     git \
@@ -42,6 +39,9 @@ RUN echo "root:${ROOT_PASSWORD}" | chpasswd
 # Install R (latest version)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gnupg \
+    lsb-release \
+    software-properties-common \
+    ca-certificates \
     && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 || apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
     && add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/" \
     && apt-get update \
@@ -90,4 +90,4 @@ exec "$@"' > /usr/local/bin/start.sh \
 
 WORKDIR /workspace
 
-CMD ["/usr/local/bin/start.sh", "jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser", "--NotebookApp.token=''"
+CMD ["/usr/local/bin/start.sh", "jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser", "--NotebookApp.token=''" ]
